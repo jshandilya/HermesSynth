@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <JUCERPROJECT id="UxvlpI" name="HermesSynth" projectType="audioplug" useAppConfig="0"
-              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1">
+              addUsingNamespaceToJuceHeader="0" displaySplashScreen="1" jucerFormatVersion="1"
+              pluginCharacteristicsValue="pluginIsSynth,pluginWantsMidiIn">
   <MAINGROUP id="a5UUSa" name="HermesSynth">
     <GROUP id="{29DC6BC5-EEA3-9C1A-FBF1-761CA1413174}" name="Source">
       <FILE id="vkoXq8" name="PluginProcessor.cpp" compile="1" resource="0"
