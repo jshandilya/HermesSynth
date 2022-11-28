@@ -22,8 +22,13 @@ HermesSynthAudioProcessor::HermesSynthAudioProcessor()
                        ), apvts(*this, nullptr, "Parameters", createParams())
 #endif
 {
-    synth.addSound(new SynthSound());
-    synth.addVoice(new SynthVoice());
+//    synth.addSound(new SynthSound());
+    
+    for (int i = 0; i < numVoices; i++)
+    {
+        synth.addVoice(new SynthVoice());
+        synth.addSound(new SynthSound());
+    }
 }
 
 HermesSynthAudioProcessor::~HermesSynthAudioProcessor()
