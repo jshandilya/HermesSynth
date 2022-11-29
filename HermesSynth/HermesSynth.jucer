@@ -19,11 +19,16 @@
     <GROUP id="{920368B7-263C-B309-F58F-7E9545DB4723}" name="Data">
       <FILE id="toibSF" name="AdsrData.cpp" compile="1" resource="0" file="Source/Data/AdsrData.cpp"/>
       <FILE id="lDBbzw" name="AdsrData.h" compile="0" resource="0" file="Source/Data/AdsrData.h"/>
+      <FILE id="LMnYR9" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>
+      <FILE id="tkI3lx" name="OscData.h" compile="0" resource="0" file="Source/Data/OscData.h"/>
     </GROUP>
     <GROUP id="{78886F85-3F5E-14B4-AF47-0B20F1682AD3}" name="UI">
       <FILE id="geqIvx" name="AdsrComponent.cpp" compile="1" resource="0"
             file="Source/UI/AdsrComponent.cpp"/>
       <FILE id="p93RJy" name="AdsrComponent.h" compile="0" resource="0" file="Source/UI/AdsrComponent.h"/>
+      <FILE id="i4Vqbh" name="OscComponent.cpp" compile="1" resource="0"
+            file="Source/UI/OscComponent.cpp"/>
+      <FILE id="UQhgp4" name="OscComponent.h" compile="0" resource="0" file="Source/UI/OscComponent.h"/>
     </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
