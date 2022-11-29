@@ -16,6 +16,15 @@
       <FILE id="AyAgtB" name="SynthVoice.h" compile="0" resource="0" file="Source/SynthVoice.h"/>
       <FILE id="KokYYK" name="SynthSound.h" compile="0" resource="0" file="Source/SynthSound.h"/>
     </GROUP>
+    <GROUP id="{920368B7-263C-B309-F58F-7E9545DB4723}" name="Data">
+      <FILE id="toibSF" name="AdsrData.cpp" compile="1" resource="0" file="Source/Data/AdsrData.cpp"/>
+      <FILE id="lDBbzw" name="AdsrData.h" compile="0" resource="0" file="Source/Data/AdsrData.h"/>
+    </GROUP>
+    <GROUP id="{78886F85-3F5E-14B4-AF47-0B20F1682AD3}" name="UI">
+      <FILE id="geqIvx" name="AdsrComponent.cpp" compile="1" resource="0"
+            file="Source/UI/AdsrComponent.cpp"/>
+      <FILE id="p93RJy" name="AdsrComponent.h" compile="0" resource="0" file="Source/UI/AdsrComponent.h"/>
+    </GROUP>
   </MAINGROUP>
   <JUCEOPTIONS JUCE_STRICT_REFCOUNTEDPOINTER="1" JUCE_VST3_CAN_REPLACE_VST2="0"/>
   <EXPORTFORMATS>
