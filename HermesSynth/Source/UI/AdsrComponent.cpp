@@ -55,6 +55,7 @@ void AdsrComponent::resized()
 void AdsrComponent::setSliderParams (juce::Slider& slider)
 {
     slider.setSliderStyle(juce::Slider::LinearVertical);
-    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+//    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    slider.setTextBoxStyle(juce::Slider::NoTextBox, true, 50, 25);
     addAndMakeVisible(slider);
 }
