@@ -11,9 +11,9 @@
 
 //==============================================================================
 HermesSynthAudioProcessorEditor::HermesSynthAudioProcessorEditor (HermesSynthAudioProcessor& p)
-    : AudioProcessorEditor (&p), audioProcessor (p), osc(audioProcessor.apvts, "OSC1WAVETYPE", "OSC1FMFREQ", "OSC1FMDEPTH"), adsr(audioProcessor.apvts)
+    :AudioProcessorEditor (&p), audioProcessor (p), osc (audioProcessor.apvts, "OSC1WAVETYPE", "OSC1FMFREQ", "OSC1FMDEPTH"), adsr ("Amp Envelope", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE")
 {
-    setSize (400, 300);
+    setSize (620, 500);
     addAndMakeVisible(osc);
     addAndMakeVisible(adsr);
 }
@@ -30,8 +30,12 @@ void HermesSynthAudioProcessorEditor::paint (juce::Graphics& g)
 
 void HermesSynthAudioProcessorEditor::resized()
 {
-    osc.setBounds(10, 10, 200, 200);
-    adsr.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight());
+    const auto paddingX = 5;
+    const auto paddingY = 35;
+    const auto paddingY2 = 235;
+    
+    osc.setBounds (paddingX, paddingY, 300, 200);
+    adsr.setBounds (osc.getRight(), paddingY, 300, 200);
 }
 
 
