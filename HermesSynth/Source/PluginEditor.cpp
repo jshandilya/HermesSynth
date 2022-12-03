@@ -11,11 +11,16 @@
 
 //==============================================================================
 HermesSynthAudioProcessorEditor::HermesSynthAudioProcessorEditor (HermesSynthAudioProcessor& p)
-    :AudioProcessorEditor (&p), audioProcessor (p), osc (audioProcessor.apvts, "OSC1WAVETYPE", "OSC1FMFREQ", "OSC1FMDEPTH"), adsr ("Amp Envelope", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE")
+    :AudioProcessorEditor (&p)
+, audioProcessor (p)
+, osc (audioProcessor.apvts, "OSC1WAVETYPE", "OSC1FMFREQ", "OSC1FMDEPTH")
+, adsr ("Amp Envelope", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE")
+, filter(audioProcessor.apvts, "FILTERTYPE", "FILTERFREQ", "FILTERRES")
 {
     setSize (620, 500);
     addAndMakeVisible(osc);
     addAndMakeVisible(adsr);
+    addAndMakeVisible(filter);
 }
 
 HermesSynthAudioProcessorEditor::~HermesSynthAudioProcessorEditor()
@@ -36,6 +41,7 @@ void HermesSynthAudioProcessorEditor::resized()
     
     osc.setBounds (paddingX, paddingY, 300, 200);
     adsr.setBounds (osc.getRight(), paddingY, 300, 200);
+    filter.setBounds(paddingX, paddingY2, 300, 200);
 }
 
 

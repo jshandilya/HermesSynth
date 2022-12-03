@@ -109,6 +109,8 @@ void HermesSynthAudioProcessor::prepareToPlay (double sampleRate, int samplesPer
             voice->prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
         }
     }
+    
+    filter.prepareToPlay(sampleRate, samplesPerBlock, getTotalNumOutputChannels());
 }
 
 void HermesSynthAudioProcessor::releaseResources()
@@ -177,6 +179,14 @@ void HermesSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     }
     
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    
+    auto& filterType = *apvts.getRawParameterValue("FILTERTYPE");
+    auto& cutoff = *apvts.getRawParameterValue("FILTERFREQ");
+    auto& res = *apvts.getRawParameterValue("FILTERRES");
+    
+    filter.updateParameters(filterType, cutoff, res);
+    
+    filter.process(buffer);
 
 }
 
@@ -229,6 +239,13 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::c
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "DECAY", 1}, "Decay", juce::NormalisableRange<float> { 0.0f, 1.0f, 0.01f }, 0.1f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "SUSTAIN", 1}, "Sustain", juce::NormalisableRange<float> { 0.0f, 1.0f, 0.01f }, 1.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "RELEASE", 1}, "Release", juce::NormalisableRange<float> { 0.0f, 3.0f, 0.01f }, 0.4f));
+    
+    // Filter
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("FILTERTYPE", "Filter Type", juce::StringArray { "Lowpass", "Bandpass", "Highpass" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "FILTERFREQ", 1}, "Filter Freq", juce::NormalisableRange<float> { 20.0f, 20000.0f, 0.01f, 0.6f }, 200.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "FILTERRES", 1}, "Filter Resonance", juce::NormalisableRange<float> { 1.0f, 10.0f, 0.01f}, 1.0f));
+
+
    
     return { params.begin(), params.end() };
 }
