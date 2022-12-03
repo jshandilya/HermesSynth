@@ -63,7 +63,7 @@ public:
 private:
     juce::Synthesiser synth;
     
-    const int numVoices { 8 };
+    const int numVoices { 1 };
     
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
 

@@ -167,8 +167,12 @@ void HermesSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
             
             auto& oscWaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
             
-            voice->update(attack.load(), decay.load(), sustain.load(), release.load());
+            auto& fmDepth = *apvts.getRawParameterValue("FMDEPTH");
+            auto& fmFreq = *apvts.getRawParameterValue("FMFREQ");
+            
             voice->getOscillator().setWaveType(oscWaveChoice);
+            voice->getOscillator().setFMParams(fmDepth, fmFreq);
+            voice->update(attack.load(), decay.load(), sustain.load(), release.load());
         }
     }
     
@@ -214,9 +218,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::c
     
     // OSC Waveform
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC", "Oscillator", juce::StringArray { "Sine", "Saw", "Square" }, 0));
-    
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC1WAVETYPE", "Osc 1 Wave Type", juce::StringArray { "Sine", "Saw", "Square" }, 0));
 
+    // FM
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "FMFREQ", 1}, "FM Frequency", juce::NormalisableRange<float> { 0.0f, 1000.0f, }, 5.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "FMDEPTH", 1}, "FM Depth", juce::NormalisableRange<float> { 0.0f, 1000.0f, }, 500.0f));
     
     // ADSR
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "ATTACK", 1}, "Attack", juce::NormalisableRange<float> { 0.1f, 1.0f, }, 0.1f));
