@@ -12,18 +12,29 @@
 #include "OscComponent.h"
 
 //==============================================================================
-OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorId, juce::String fmFreqID, juce::String fmDepthID)
+OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID)
 {
-    juce::StringArray choices { "Sine", "Saw", "Square" };
-    oscWaveSelector.addItemList(choices, 1);
+    juce::StringArray waveChoices { "Sine", "Saw", "Square" };
+    oscWaveSelector.addItemList(waveChoices, 1);
     addAndMakeVisible(oscWaveSelector);
     
-    oscWaveSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, "OSC1WAVETYPE", oscWaveSelector);
+    oscWaveSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, waveSelectorID, oscWaveSelector);
     
     waveSelectorLabel.setColour (juce::Label::ColourIds::textColourId, juce::Colours::white);
     waveSelectorLabel.setFont (15.0f);
     waveSelectorLabel.setJustificationType (juce::Justification::left);
     addAndMakeVisible (waveSelectorLabel);
+    
+    juce::StringArray voicesChoices { "1", "2", "3", "4", "5", "6", "7", "8" };
+    voicesSelector.addItemList(voicesChoices, 1);
+    addAndMakeVisible(voicesSelector);
+    
+    voicesSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, voicesSelectorID, voicesSelector);
+    
+    voicesSelectorLabel.setColour (juce::Label::ColourIds::textColourId, juce::Colours::white);
+    voicesSelectorLabel.setFont (15.0f);
+    voicesSelectorLabel.setJustificationType (juce::Justification::left);
+    addAndMakeVisible (voicesSelectorLabel);
     
     setSliderWithLabel(fmFreqSlider, fmFreqLabel, apvts, fmFreqID, fmFreqAttachment);
     setSliderWithLabel(fmDepthSlider, fmDepthLabel, apvts, fmDepthID, fmDepthAttachment);
@@ -47,14 +58,25 @@ void OscComponent::paint (juce::Graphics& g)
 
 void OscComponent::resized()
 {
+    const auto startX = 10;
     const auto startY = 55;
+    
+    const auto boxWidth = 90;
+    const auto boxHeight = 30;
+    
     const auto sliderWidth = 100;
     const auto sliderHeight = 90;
+    
     const auto labelYOffset = 20;
     const auto labelHeight = 20;
     
-    oscWaveSelector.setBounds (10, startY + 5, 90, 30);
-    waveSelectorLabel.setBounds (10, startY - labelYOffset, 90, labelHeight);
+    const auto voicesOffset = 70;
+    
+    oscWaveSelector.setBounds (startX, startY + 5, boxWidth, boxHeight);
+    waveSelectorLabel.setBounds (startX, startY - labelYOffset, oscWaveSelector.getWidth(), labelHeight);
+    
+    voicesSelector.setBounds (startX, oscWaveSelector.getY() + voicesOffset, boxWidth, boxHeight);
+    voicesSelectorLabel.setBounds (startX, waveSelectorLabel.getY() + voicesOffset, voicesSelector.getWidth(), labelHeight);
     
     fmFreqSlider.setBounds (oscWaveSelector.getRight(), startY, sliderWidth, sliderHeight);
     fmFreqLabel.setBounds (fmFreqSlider.getX(), fmFreqSlider.getY() - labelYOffset, fmFreqSlider.getWidth(), labelHeight);
@@ -63,9 +85,9 @@ void OscComponent::resized()
     fmDepthLabel.setBounds (fmDepthSlider.getX(), fmDepthSlider.getY() - labelYOffset, fmDepthSlider.getWidth(), labelHeight);
 }
 
-using Attachment = juce::AudioProcessorValueTreeState::SliderAttachment;
+using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
 
-void OscComponent::setSliderWithLabel (juce::Slider& slider, juce::Label& label, juce::AudioProcessorValueTreeState& apvts, juce::String paramID, std::unique_ptr<Attachment>& attachment)
+void OscComponent::setSliderWithLabel (juce::Slider& slider, juce::Label& label, juce::AudioProcessorValueTreeState& apvts, juce::String paramID, std::unique_ptr<SliderAttachment>& attachment)
 {
     slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);

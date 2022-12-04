@@ -13,7 +13,7 @@
 HermesSynthAudioProcessorEditor::HermesSynthAudioProcessorEditor (HermesSynthAudioProcessor& p)
     :AudioProcessorEditor (&p)
 , audioProcessor (p)
-, osc (audioProcessor.apvts, "OSC1WAVETYPE", "OSC1FMFREQ", "OSC1FMDEPTH")
+, osc (audioProcessor.apvts, "OSC1WAVETYPE", "VOICES", "OSC1FMFREQ", "OSC1FMDEPTH")
 , adsr ("Amp Envelope", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE")
 , filter(audioProcessor.apvts, "FILTERTYPE", "FILTERFREQ", "FILTERRES")
 {

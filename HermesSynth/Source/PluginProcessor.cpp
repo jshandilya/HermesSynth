@@ -22,13 +22,15 @@ HermesSynthAudioProcessor::HermesSynthAudioProcessor()
                        ), apvts(*this, nullptr, "Parameters", createParams())
 #endif
 {
-//    synth.addSound(new SynthSound());
+    synth.addSound(new SynthSound());
     
-    for (int i = 0; i < numVoices; i++)
-    {
-        synth.addVoice(new SynthVoice());
-        synth.addSound(new SynthSound());
-    }
+    setNumVoices();
+    
+//    for (int i = 0; i < numVoices; i++)
+//    {
+//        synth.addVoice(new SynthVoice());
+////        synth.addSound(new SynthSound());
+//    }
 }
 
 HermesSynthAudioProcessor::~HermesSynthAudioProcessor()
@@ -222,9 +224,23 @@ juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
     return new HermesSynthAudioProcessor();
 }
 
+void HermesSynthAudioProcessor::setNumVoices()
+{
+    auto& voiceSelect = *apvts.getRawParameterValue("VOICES");
+    
+    for (int i = 0; i < voiceSelect; i++)
+    {
+        synth.addVoice(new SynthVoice());
+//        synth.addSound(new SynthSound());
+    }
+}
+
 juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::createParams()
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
+    
+    // OSC Voices
+    params.push_back(std::make_unique<juce::AudioParameterInt>("VOICES", "Voices", 1, 8, 2));
     
     // OSC Waveform
     params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC", "Oscillator", juce::StringArray { "Sine", "Saw", "Square" }, 0));

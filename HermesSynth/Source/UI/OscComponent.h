@@ -18,29 +18,35 @@
 class OscComponent  : public juce::Component
 {
 public:
-    OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorId, juce::String fmFreqID, juce::String fmDepthID);
+    OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID);
     ~OscComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
+    using BoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
+    
     juce::ComboBox oscWaveSelector;
-    std::unique_ptr<juce::AudioProcessorValueTreeState::ComboBoxAttachment> oscWaveSelectorAttachment;
+    std::unique_ptr<BoxAttachment> oscWaveSelectorAttachment;
+    
+    juce::ComboBox voicesSelector;
+    std::unique_ptr<BoxAttachment> voicesSelectorAttachment;
     
     juce::Slider fmFreqSlider;
     juce::Slider fmDepthSlider;
     
-    using Attachment = juce::AudioProcessorValueTreeState::SliderAttachment;
+    using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
     
-    std::unique_ptr<Attachment> fmFreqAttachment;
-    std::unique_ptr<Attachment> fmDepthAttachment;
+    std::unique_ptr<SliderAttachment> fmFreqAttachment;
+    std::unique_ptr<SliderAttachment> fmDepthAttachment;
 
     juce::Label waveSelectorLabel { "Wave Type", "Wave Type" };
+    juce::Label voicesSelectorLabel { "Voices", "Voices" };
     juce::Label fmFreqLabel { "FM Freq", "FM Freq" };
     juce::Label fmDepthLabel { "FM Depth", "FM Depth" };
 
-    void setSliderWithLabel (juce::Slider& slider, juce::Label& label, juce::AudioProcessorValueTreeState& apvts, juce::String paramID, std::unique_ptr<Attachment>& attachment);
+    void setSliderWithLabel (juce::Slider& slider, juce::Label& label, juce::AudioProcessorValueTreeState& apvts, juce::String paramID, std::unique_ptr<SliderAttachment>& attachment);
     
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (OscComponent)
 };

@@ -67,6 +67,8 @@ private:
     
     const int numVoices { 1 };
     
+    void setNumVoices();
+    
     juce::AudioProcessorValueTreeState::ParameterLayout createParams();
 
     //==============================================================================
