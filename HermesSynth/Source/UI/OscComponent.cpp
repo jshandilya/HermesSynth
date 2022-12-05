@@ -12,21 +12,21 @@
 #include "OscComponent.h"
 
 //==============================================================================
-OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState& apvts, juce::String osc1GainID, juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID)
+OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState& apvts, juce::String osc1GainID, juce::String osc1PitchID, juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID)
 {
     componentName = name;
     
     // Voices Box
     juce::StringArray voicesChoices { "1", "2", "3", "4", "5", "6", "7", "8" };
     voicesSelector.addItemList(voicesChoices, 1);
-//    addAndMakeVisible(voicesSelector);
+    addAndMakeVisible(voicesSelector);
     
     voicesSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, voicesSelectorID, voicesSelector);
     
     voicesSelectorLabel.setColour (juce::Label::ColourIds::textColourId, juce::Colours::white);
     voicesSelectorLabel.setFont (15.0f);
     voicesSelectorLabel.setJustificationType (juce::Justification::left);
-//    addAndMakeVisible (voicesSelectorLabel);
+    addAndMakeVisible (voicesSelectorLabel);
     
     // Osc
     juce::StringArray waveChoices { "Sine", "Triangle", "Square", "Saw" };
@@ -41,6 +41,7 @@ OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState
     addAndMakeVisible (waveSelectorLabel);
     
     setSliderWithLabel(osc1GainSlider, osc1GainLabel, apvts, osc1GainID, osc1GainAttachment);
+    setSliderWithLabel(osc1PitchSlider, osc1PitchLabel, apvts, osc1PitchID, osc1PitchAttachment);
     
     setSliderWithLabel(fmFreqSlider, fmFreqLabel, apvts, fmFreqID, fmFreqAttachment);
     setSliderWithLabel(fmDepthSlider, fmDepthLabel, apvts, fmDepthID, fmDepthAttachment);
@@ -89,10 +90,13 @@ void OscComponent::resized()
     osc1GainSlider.setBounds (oscWaveSelector.getRight(), startY, sliderWidth, sliderHeight);
     osc1GainLabel.setBounds (osc1GainSlider.getX(), osc1GainSlider.getY() - labelYOffset, osc1GainSlider.getWidth(), labelHeight);
     
-    fmFreqSlider.setBounds (osc1GainSlider.getRight(), startY, sliderWidth, sliderHeight);
+    osc1PitchSlider.setBounds (osc1GainSlider.getRight(), startY, sliderWidth, sliderHeight);
+    osc1PitchLabel.setBounds (osc1PitchSlider.getX(), osc1PitchSlider.getY() - labelYOffset, osc1PitchSlider.getWidth(), labelHeight);
+    
+    fmFreqSlider.setBounds (osc1GainSlider.getX(), osc1GainSlider.getBottom() + 30, sliderWidth, sliderHeight);
     fmFreqLabel.setBounds (fmFreqSlider.getX(), fmFreqSlider.getY() - labelYOffset, fmFreqSlider.getWidth(), labelHeight);
 
-    fmDepthSlider.setBounds (fmFreqSlider.getRight(), startY, sliderWidth, sliderHeight);
+    fmDepthSlider.setBounds (fmFreqSlider.getRight(), osc1PitchSlider.getBottom() + 30, sliderWidth, sliderHeight);
     fmDepthLabel.setBounds (fmDepthSlider.getX(), fmDepthSlider.getY() - labelYOffset, fmDepthSlider.getWidth(), labelHeight);
 }
 
