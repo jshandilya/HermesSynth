@@ -11,6 +11,7 @@
 #include <JuceHeader.h>
 #include "SynthVoice.h"
 #include "SynthSound.h"
+#include "Data/DistortionData.h"
 
 //==============================================================================
 /**
@@ -61,7 +62,9 @@ public:
     juce::AudioProcessorValueTreeState apvts;
     
 private:
-    juce::Synthesiser synth;    
+    juce::Synthesiser synth;
+    
+    DistortionData distortion;
     
     int numVoices { 1 };
     

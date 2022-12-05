@@ -205,6 +205,12 @@ void HermesSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
     }
     
     synth.renderNextBlock(buffer, midiMessages, 0, buffer.getNumSamples());
+    
+    // distortion
+    auto& distGain = *apvts.getRawParameterValue("DISTGAIN");
+    auto& distLevel = *apvts.getRawParameterValue("DISTLEVEL");
+    
+    distortion.process(buffer, distGain, distLevel);
 }
 
 //==============================================================================
@@ -289,5 +295,11 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::c
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "MODSUSTAIN", 1}, "Mod Sustain", juce::NormalisableRange<float> { 0.0f, 1.0f, 0.01f }, 1.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "MODRELEASE", 1}, "Mod Release", juce::NormalisableRange<float> { 0.0f, 3.0f, 0.01f }, 0.4f));
 
+    
+    // Distortion
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "DISTGAIN", 1}, "Distortion Gain", juce::NormalisableRange<float> { 0.01f, 100.0f, 0.01f }, 0.1f));
+    
+    params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "DISTLEVEL", 1}, "Distortion Level", juce::NormalisableRange<float> { 0.1f, 1.0f, 0.01f }, 0.5f));
+    
     return { params.begin(), params.end() };
 }

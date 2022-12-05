@@ -13,6 +13,7 @@
 #include "UI/AdsrComponent.h"
 #include "UI/OscComponent.h"
 #include "UI/FilterComponent.h"
+#include "UI/DistortionComponent.h"
 
 //==============================================================================
 /**
@@ -34,6 +35,7 @@ private:
     AdsrComponent adsr;
     FilterComponent filter;
     AdsrComponent modAdsr;
+    DistortionComponent distortion;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (HermesSynthAudioProcessorEditor)
 };

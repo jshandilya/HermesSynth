@@ -19,6 +19,10 @@
     <GROUP id="{920368B7-263C-B309-F58F-7E9545DB4723}" name="Data">
       <FILE id="toibSF" name="AdsrData.cpp" compile="1" resource="0" file="Source/Data/AdsrData.cpp"/>
       <FILE id="lDBbzw" name="AdsrData.h" compile="0" resource="0" file="Source/Data/AdsrData.h"/>
+      <FILE id="G3Gu5d" name="DistortionData.cpp" compile="1" resource="0"
+            file="Source/Data/DistortionData.cpp"/>
+      <FILE id="DL7O7K" name="DistortionData.h" compile="0" resource="0"
+            file="Source/Data/DistortionData.h"/>
       <FILE id="U0Fi4P" name="FilterData.cpp" compile="1" resource="0" file="Source/Data/FilterData.cpp"/>
       <FILE id="Olwycg" name="FilterData.h" compile="0" resource="0" file="Source/Data/FilterData.h"/>
       <FILE id="LMnYR9" name="OscData.cpp" compile="1" resource="0" file="Source/Data/OscData.cpp"/>
@@ -28,6 +32,10 @@
       <FILE id="geqIvx" name="AdsrComponent.cpp" compile="1" resource="0"
             file="Source/UI/AdsrComponent.cpp"/>
       <FILE id="p93RJy" name="AdsrComponent.h" compile="0" resource="0" file="Source/UI/AdsrComponent.h"/>
+      <FILE id="np5FU5" name="DistortionComponent.cpp" compile="1" resource="0"
+            file="Source/UI/DistortionComponent.cpp"/>
+      <FILE id="o6e60Z" name="DistortionComponent.h" compile="0" resource="0"
+            file="Source/UI/DistortionComponent.h"/>
       <FILE id="KA0ps1" name="FilterComponent.cpp" compile="1" resource="0"
             file="Source/UI/FilterComponent.cpp"/>
       <FILE id="iP47Xe" name="FilterComponent.h" compile="0" resource="0"
