@@ -32,12 +32,16 @@ public:
     void updateFilter(const int filterType, const float cutoff, const float res);
     void updateModAdsr (const float attack, const float decay, const float sustain, const float release);
 
-    OscData& getOscillator() { return osc1; }
+    OscData& getOscillator1() { return osc1; }
+    OscData& getOscillator2() { return osc2; }
+
     
 private:
     juce::AudioBuffer<float> synthBuffer;
     
     OscData osc1;
+    OscData osc2;
+    
     AdsrData adsr;
     FilterData filter;
     AdsrData modAdsr;

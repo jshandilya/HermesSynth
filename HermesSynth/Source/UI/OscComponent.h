@@ -27,11 +27,11 @@ public:
 private:
     using BoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
     
-    juce::ComboBox oscWaveSelector;
-    std::unique_ptr<BoxAttachment> oscWaveSelectorAttachment;
-    
     juce::ComboBox voicesSelector;
     std::unique_ptr<BoxAttachment> voicesSelectorAttachment;
+    
+    juce::ComboBox oscWaveSelector;
+    std::unique_ptr<BoxAttachment> oscWaveSelectorAttachment;
     
     juce::Slider fmFreqSlider;
     juce::Slider fmDepthSlider;
