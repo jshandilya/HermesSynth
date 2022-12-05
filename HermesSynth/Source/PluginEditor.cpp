@@ -16,11 +16,13 @@ HermesSynthAudioProcessorEditor::HermesSynthAudioProcessorEditor (HermesSynthAud
 , osc (audioProcessor.apvts, "OSC1WAVETYPE", "VOICES", "OSC1FMFREQ", "OSC1FMDEPTH")
 , adsr ("Amp Envelope", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE")
 , filter(audioProcessor.apvts, "FILTERTYPE", "FILTERFREQ", "FILTERRES")
+, modAdsr("Mod Envelope", audioProcessor.apvts, "MODATTACK", "MODDECAY", "MODSUSTAIN", "MODRELEASE")
 {
     setSize (620, 500);
     addAndMakeVisible(osc);
     addAndMakeVisible(adsr);
     addAndMakeVisible(filter);
+    addAndMakeVisible(modAdsr);
 }
 
 HermesSynthAudioProcessorEditor::~HermesSynthAudioProcessorEditor()
@@ -39,9 +41,13 @@ void HermesSynthAudioProcessorEditor::resized()
     const auto paddingY = 35;
     const auto paddingY2 = 235;
     
-    osc.setBounds (paddingX, paddingY, 300, 200);
-    adsr.setBounds (osc.getRight(), paddingY, 300, 200);
-    filter.setBounds(paddingX, paddingY2, 300, 200);
+    const auto width = 300;
+    const auto height = 200;
+    
+    osc.setBounds(paddingX, paddingY, width, height);
+    adsr.setBounds(osc.getRight(), paddingY, width, height);
+    filter.setBounds(paddingX, paddingY2, width, height);
+    modAdsr.setBounds(filter.getRight(), paddingY2, width, height);
 }
 
 

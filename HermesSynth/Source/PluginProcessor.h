@@ -11,7 +11,6 @@
 #include <JuceHeader.h>
 #include "SynthVoice.h"
 #include "SynthSound.h"
-#include "Data/FilterData.h"
 
 //==============================================================================
 /**
@@ -62,9 +61,7 @@ public:
     juce::AudioProcessorValueTreeState apvts;
     
 private:
-    juce::Synthesiser synth;
-    FilterData filter;
-    
+    juce::Synthesiser synth;    
     const int numVoices { 1 };
     
     void setNumVoices();
