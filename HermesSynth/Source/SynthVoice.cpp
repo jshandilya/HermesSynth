@@ -53,8 +53,8 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     spec.sampleRate = sampleRate;
     spec.numChannels = outputChannels;
     
-    osc1.prepareToPlay(spec);
-    osc2.prepareToPlay(spec);
+    osc1.prepareToPlay(sampleRate, samplesPerBlock, outputChannels);
+    osc2.prepareToPlay(sampleRate, samplesPerBlock, outputChannels);
     
     adsr.setSampleRate(sampleRate);
     filter.prepareToPlay(sampleRate, samplesPerBlock, outputChannels);

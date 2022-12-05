@@ -162,11 +162,13 @@ void HermesSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
         {
             // Osc 1
             auto& osc1WaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
+            auto& osc1Gain = *apvts.getRawParameterValue("OSC1GAIN");
             auto& fmDepth1 = *apvts.getRawParameterValue("OSC1FMDEPTH");
             auto& fmFreq1 = *apvts.getRawParameterValue("OSC1FMFREQ");
             
             // Osc 2
             auto& osc2WaveChoice = *apvts.getRawParameterValue("OSC2WAVETYPE");
+            auto& osc2Gain = *apvts.getRawParameterValue("OSC2GAIN");
             auto& fmDepth2 = *apvts.getRawParameterValue("OSC2FMDEPTH");
             auto& fmFreq2 = *apvts.getRawParameterValue("OSC2FMFREQ");
             
@@ -189,9 +191,11 @@ void HermesSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
             
             // Connections
             voice->getOscillator1().setWaveType(osc1WaveChoice);
+            voice->getOscillator1().setGain(osc1Gain);
             voice->getOscillator1().setFMParams(fmDepth1, fmFreq1);
             
             voice->getOscillator2().setWaveType(osc2WaveChoice);
+            voice->getOscillator2().setGain(osc2Gain);
             voice->getOscillator2().setFMParams(fmDepth2, fmFreq2);
             
             voice->updateAdsr (attack.load(), decay.load(), sustain.load(), release.load());
@@ -251,11 +255,15 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::c
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
     
     // OSC Voices
-    params.push_back(std::make_unique<juce::AudioParameterInt>("VOICES", "Voices", 1, 8, 8));
+    params.push_back(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { "VOICES", 1 }, "Voices", 1, 8, 8));
     
     // OSC Waveform
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC1WAVETYPE", "Osc 1 Wave Type", juce::StringArray { "Sine", "Saw", "Square" }, 0));
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2WAVETYPE", "Osc 2 Wave Type", juce::StringArray { "Sine", "Saw", "Square" }, 2));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "OSC1WAVETYPE", 1 }, "Osc 1 Wave Type", juce::StringArray { "Sine", "Saw", "Square" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "OSC2WAVETYPE", 1 }, "Osc 2 Wave Type", juce::StringArray { "Sine", "Saw", "Square" }, 2));
+    
+    // OSC Gain
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC1GAIN", 1 }, "Oscillator 1 Gain", juce::NormalisableRange<float> { -40.0f, 0.2f, 0.1f }, 0.1f, "dB"));
+    params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC2GAIN", 1 }, "Oscillator 2 Gain", juce::NormalisableRange<float> { -40.0f, 0.2f, 0.1f }, 0.1f, "dB"));
 
     // FM
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC1FMFREQ", 1}, "Osc 1 FM Frequency", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f }, 0.0f));
@@ -271,7 +279,7 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::c
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "RELEASE", 1}, "Release", juce::NormalisableRange<float> { 0.0f, 3.0f, 0.01f }, 0.4f));
     
     // Filter
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("FILTERTYPE", "Filter Type", juce::StringArray { "Lowpass", "Bandpass", "Highpass" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "FILTERTYPE", 1 }, "Filter Type", juce::StringArray { "Lowpass", "Bandpass", "Highpass" }, 0));
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "FILTERFREQ", 1}, "Filter Freq", juce::NormalisableRange<float> { 20.0f, 20000.0f, 0.1f, 0.6f }, 20000.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "FILTERRES", 1}, "Filter Resonance", juce::NormalisableRange<float> { 1.0f, 10.0f, 0.01f}, 1.0f));
 

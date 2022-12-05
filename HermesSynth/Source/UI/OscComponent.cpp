@@ -12,19 +12,19 @@
 #include "OscComponent.h"
 
 //==============================================================================
-OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID, juce::String waveSelectorID2, juce::String fmFreqID2, juce::String fmDepthID2)
+OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String osc1GainID, juce::String osc2GainID, juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID, juce::String waveSelectorID2, juce::String fmFreqID2, juce::String fmDepthID2)
 {
     // Voices Box
     juce::StringArray voicesChoices { "1", "2", "3", "4", "5", "6", "7", "8" };
     voicesSelector.addItemList(voicesChoices, 1);
-    addAndMakeVisible(voicesSelector);
+//    addAndMakeVisible(voicesSelector);
     
     voicesSelectorAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, voicesSelectorID, voicesSelector);
     
     voicesSelectorLabel.setColour (juce::Label::ColourIds::textColourId, juce::Colours::white);
     voicesSelectorLabel.setFont (15.0f);
     voicesSelectorLabel.setJustificationType (juce::Justification::left);
-    addAndMakeVisible (voicesSelectorLabel);
+//    addAndMakeVisible (voicesSelectorLabel);
     
     // Osc 1
     juce::StringArray waveChoices { "Sine", "Saw", "Square" };
@@ -48,6 +48,10 @@ OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::Stri
     waveSelectorLabel2.setFont (15.0f);
     waveSelectorLabel2.setJustificationType (juce::Justification::left);
     addAndMakeVisible (waveSelectorLabel2);
+    
+    
+    setSliderWithLabel(osc1GainSlider, osc1GainLabel, apvts, osc1GainID, osc1GainAttachment);
+    setSliderWithLabel(osc2GainSlider, osc2GainLabel, apvts, osc2GainID, osc2GainAttachment);
     
     setSliderWithLabel(fmFreqSlider, fmFreqLabel, apvts, fmFreqID, fmFreqAttachment);
     setSliderWithLabel(fmDepthSlider, fmDepthLabel, apvts, fmDepthID, fmDepthAttachment);
@@ -96,7 +100,10 @@ void OscComponent::resized()
     voicesSelector.setBounds (startX, oscWaveSelector.getY() + voicesOffset, boxWidth, boxHeight);
     voicesSelectorLabel.setBounds (startX, waveSelectorLabel.getY() + voicesOffset, voicesSelector.getWidth(), labelHeight);
     
-    fmFreqSlider.setBounds (oscWaveSelector.getRight(), startY, sliderWidth, sliderHeight);
+    osc1GainSlider.setBounds (oscWaveSelector.getRight(), startY, sliderWidth, sliderHeight);
+    osc1GainLabel.setBounds (osc1GainSlider.getX(), osc1GainSlider.getY() - labelYOffset, osc1GainSlider.getWidth(), labelHeight);
+    
+    fmFreqSlider.setBounds (osc1GainSlider.getRight(), startY, sliderWidth, sliderHeight);
     fmFreqLabel.setBounds (fmFreqSlider.getX(), fmFreqSlider.getY() - labelYOffset, fmFreqSlider.getWidth(), labelHeight);
 
     fmDepthSlider.setBounds (fmFreqSlider.getRight(), startY, sliderWidth, sliderHeight);
@@ -106,7 +113,10 @@ void OscComponent::resized()
     oscWaveSelector2.setBounds (fmDepthSlider.getRight(), startY + 5, boxWidth, boxHeight);
     waveSelectorLabel2.setBounds (oscWaveSelector2.getX(), startY - labelYOffset, oscWaveSelector2.getWidth(), labelHeight);
     
-    fmFreqSlider2.setBounds (oscWaveSelector2.getRight(), startY, sliderWidth, sliderHeight);
+    osc2GainSlider.setBounds (oscWaveSelector2.getRight(), startY, sliderWidth, sliderHeight);
+    osc2GainLabel.setBounds (osc2GainSlider.getX(), osc2GainSlider.getY() - labelYOffset, osc2GainSlider.getWidth(), labelHeight);
+    
+    fmFreqSlider2.setBounds (osc2GainSlider.getRight(), startY, sliderWidth, sliderHeight);
     fmFreqLabel2.setBounds (fmFreqSlider2.getX(), fmFreqSlider2.getY() - labelYOffset, fmFreqSlider2.getWidth(), labelHeight);
     
     fmDepthSlider2.setBounds (fmFreqSlider2.getRight(), startY, sliderWidth, sliderHeight);
