@@ -61,7 +61,7 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     modAdsr.setSampleRate(sampleRate);
     
     gain.prepare(spec);
-    gain.setGainLinear(0.3f);
+    gain.setGainLinear(0.07f);
     
     isPrepared = true;
 }
