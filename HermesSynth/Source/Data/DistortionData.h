@@ -12,11 +12,12 @@
 
 #include <JuceHeader.h>
 
+
 class DistortionData
 {
 public:
-    void process(juce::AudioBuffer<float>& buffer, float gain, float level);
+    void process(const int choice, juce::AudioBuffer<float>& buffer, float gain, float level, int numChannels);
     
 private:
-    
+
 };
