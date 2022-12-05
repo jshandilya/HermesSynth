@@ -39,15 +39,22 @@ void OscData::setWaveType(const int choice)
             initialise([](float x) { return std::sin (x); });
             break;
             
-        // Saw
+        // Triangle
         case 1:
-            initialise([](float x) { return x / juce::MathConstants<float>::pi; });
+            initialise([](float x) { return abs(x / juce::MathConstants<float>::pi); });
             break;
         
         // Square
         case 2:
             initialise([](float x) { return x < 0.0f ? - 1.0f : 1.0f; });
             break;
+            
+        // Saw
+        case 3:
+            initialise([](float x) { return x / juce::MathConstants<float>::pi; });
+            break;
+            
+       
             
         default:
             jassertfalse;

@@ -27,7 +27,7 @@ OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::Stri
 //    addAndMakeVisible (voicesSelectorLabel);
     
     // Osc 1
-    juce::StringArray waveChoices { "Sine", "Saw", "Square" };
+    juce::StringArray waveChoices { "Sine", "Triangle", "Square", "Saw" };
     oscWaveSelector.addItemList(waveChoices, 1);
     addAndMakeVisible(oscWaveSelector);
     
@@ -110,7 +110,7 @@ void OscComponent::resized()
     fmDepthLabel.setBounds (fmDepthSlider.getX(), fmDepthSlider.getY() - labelYOffset, fmDepthSlider.getWidth(), labelHeight);
     
     // Osc 2
-    oscWaveSelector2.setBounds (fmDepthSlider.getRight(), startY + 5, boxWidth, boxHeight);
+    oscWaveSelector2.setBounds (fmDepthSlider.getRight() + 50, startY + 5, boxWidth, boxHeight);
     waveSelectorLabel2.setBounds (oscWaveSelector2.getX(), startY - labelYOffset, oscWaveSelector2.getWidth(), labelHeight);
     
     osc2GainSlider.setBounds (oscWaveSelector2.getRight(), startY, sliderWidth, sliderHeight);
