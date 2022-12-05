@@ -47,6 +47,7 @@ void SynthVoice::pitchWheelMoved (int newPitchWheelValue)
 
 void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels)
 {
+    reset();
     
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
@@ -99,6 +100,13 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int 
             clearCurrentNote();
         }
     }
+}
+
+void SynthVoice::reset()
+{
+    gain.reset();
+    adsr.reset();
+    modAdsr.reset();
 }
 
 void SynthVoice::updateFilter(const int filterType, const float cutoff, const float res)

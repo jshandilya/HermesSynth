@@ -28,6 +28,8 @@ public:
     void prepareToPlay (double sampleRate, int samplesPerBlock, int outputChannels);
     void renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int startSample, int numSample) override;
     
+    void reset();
+    
     void updateAdsr (const float attack, const float decay, const float sustain, const float release);
     void updateFilter(const int filterType, const float cutoff, const float res);
     void updateModAdsr (const float attack, const float decay, const float sustain, const float release);

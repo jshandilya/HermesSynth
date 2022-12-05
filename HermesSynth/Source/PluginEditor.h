@@ -32,6 +32,7 @@ private:
     HermesSynthAudioProcessor& audioProcessor;
     
     OscComponent osc;
+    OscComponent osc2;
     AdsrComponent adsr;
     FilterComponent filter;
     AdsrComponent modAdsr;
