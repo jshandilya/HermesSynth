@@ -17,7 +17,7 @@ HermesSynthAudioProcessorEditor::HermesSynthAudioProcessorEditor (HermesSynthAud
 , adsr ("Amp Envelope", audioProcessor.apvts, "ATTACK", "DECAY", "SUSTAIN", "RELEASE")
 , filter(audioProcessor.apvts, "FILTERTYPE", "FILTERFREQ", "FILTERRES")
 , modAdsr("Mod Envelope", audioProcessor.apvts, "MODATTACK", "MODDECAY", "MODSUSTAIN", "MODRELEASE")
-, distortion(audioProcessor.apvts, "DISTGAIN", "DISTLEVEL")
+, distortion(audioProcessor.apvts, "DISTTYPE", "DISTGAIN", "DISTLEVEL")
 {
     setSize (930, 750);
     addAndMakeVisible(osc);

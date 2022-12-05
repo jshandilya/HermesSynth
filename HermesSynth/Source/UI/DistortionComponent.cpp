@@ -12,8 +12,19 @@
 #include "DistortionComponent.h"
 
 //==============================================================================
-DistortionComponent::DistortionComponent(juce::AudioProcessorValueTreeState& apvts, juce::String gainID, juce::String levelID)
+DistortionComponent::DistortionComponent(juce::AudioProcessorValueTreeState& apvts, juce::String distTypeID, juce::String gainID, juce::String levelID)
 {
+    juce::StringArray distChoicess { "Off", "Hard Clip", "Soft Clip" };
+    distTypeSelector.addItemList(distChoicess, 1);
+    addAndMakeVisible(distTypeSelector);
+    
+    distTypeAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, distTypeID, distTypeSelector);
+    
+    distTypeLabel.setColour (juce::Label::ColourIds::textColourId, juce::Colours::white);
+    distTypeLabel.setFont (15.0f);
+    distTypeLabel.setJustificationType (juce::Justification::left);
+    addAndMakeVisible (distTypeLabel);
+    
     setSliderWithLabel(gainSlider, gainLabel, apvts, gainID, gainAttachment);
     setSliderWithLabel(levelSlider, levelLabel, apvts, levelID, levelAttachment);
 }
@@ -40,14 +51,20 @@ void DistortionComponent::resized()
     const auto startX = 10;
     const auto startY = 55;
     
+    const auto boxWidth = 90;
+    const auto boxHeight = 30;
+    
     const auto sliderWidth = 100;
     const auto sliderHeight = 90;
     
     const auto labelYOffset = 20;
     const auto labelHeight = 20;
     
-    gainSlider.setBounds (startX, startY + 5, sliderWidth, sliderHeight);
-    gainLabel.setBounds (startX, startY - labelYOffset, gainSlider.getWidth(), labelHeight);
+    distTypeSelector.setBounds (startX, startY + 5, boxWidth, boxHeight);
+    distTypeLabel.setBounds (startX, startY - labelYOffset, distTypeSelector.getWidth(), labelHeight);
+    
+    gainSlider.setBounds (distTypeSelector.getRight(), startY + 5, sliderWidth, sliderHeight);
+    gainLabel.setBounds (gainSlider.getX(), startY - labelYOffset, gainSlider.getWidth(), labelHeight);
     
     levelSlider.setBounds (gainSlider.getRight(), startY + 5, sliderWidth, sliderHeight);
     levelLabel.setBounds (levelSlider.getX(), startY - labelYOffset, levelSlider.getWidth(), labelHeight);

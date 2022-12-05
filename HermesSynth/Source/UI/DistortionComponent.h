@@ -18,14 +18,19 @@
 class DistortionComponent  : public juce::Component
 {
 public:
-    DistortionComponent(juce::AudioProcessorValueTreeState& apvts, juce::String gainID, juce::String levelID);
+    DistortionComponent(juce::AudioProcessorValueTreeState& apvts, juce::String distTypeID, juce::String gainID, juce::String levelID);
     ~DistortionComponent() override;
 
     void paint (juce::Graphics&) override;
     void resized() override;
 
 private:
+    using BoxAttachment = juce::AudioProcessorValueTreeState::ComboBoxAttachment;
     using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
+    
+    juce::ComboBox distTypeSelector;
+    std::unique_ptr<BoxAttachment> distTypeAttachment;
+    juce::Label distTypeLabel { "Distortion Type", "Type" };
     
     juce::Slider gainSlider;
     juce::Slider levelSlider;
