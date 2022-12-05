@@ -62,7 +62,8 @@ public:
     
 private:
     juce::Synthesiser synth;    
-    const int numVoices { 1 };
+    
+    int numVoices { 1 };
     
     void setNumVoices();
     
