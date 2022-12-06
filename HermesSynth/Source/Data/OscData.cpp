@@ -53,7 +53,9 @@ void OscData::setWaveType(const int choice)
         case 3:
             initialise([](float x) { return x / juce::MathConstants<float>::pi; });
             break;
-
+            
+       
+            
         default:
             jassertfalse;
             break;
@@ -65,15 +67,9 @@ void OscData::setGain (const float levelInDecibels)
     gain.setGainDecibels(levelInDecibels);
 }
 
-void OscData::setOscPitch(const int pitch)
-{
-    lastPitch = pitch;
-    setFrequency(juce::MidiMessage::getMidiNoteInHertz((lastMidiNote + lastPitch) + fmMod));
-}
-
 void OscData::setWaveFrequency(const int midiNoteNumber)
 {
-    setFrequency(juce::MidiMessage::getMidiNoteInHertz((midiNoteNumber + lastPitch) + fmMod));
+    setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber) + fmMod);
     lastMidiNote = midiNoteNumber;
 }
 
@@ -98,11 +94,4 @@ void OscData::setFMParams(const float depth, const float freq)
     auto currentFreq = (juce::MidiMessage::getMidiNoteInHertz(lastMidiNote) + fmMod);
     setFrequency (currentFreq >=0 ? currentFreq : currentFreq * -1.0f);
 
-}
-
-void OscData::resetAll()
-{
-    reset();
-    fmOsc.reset();
-    gain.reset();
 }
