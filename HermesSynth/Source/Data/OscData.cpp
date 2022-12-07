@@ -67,9 +67,15 @@ void OscData::setGain (const float levelInDecibels)
     gain.setGainDecibels(levelInDecibels);
 }
 
+void OscData::setPitch (const int pitch)
+{
+    lastPitch = pitch;
+    setFrequency(juce::MidiMessage::getMidiNoteInHertz((lastMidiNote + lastPitch) + fmMod));
+}
+
 void OscData::setWaveFrequency(const int midiNoteNumber)
 {
-    setFrequency(juce::MidiMessage::getMidiNoteInHertz(midiNoteNumber) + fmMod);
+    setFrequency(juce::MidiMessage::getMidiNoteInHertz((midiNoteNumber + lastPitch)) + fmMod);
     lastMidiNote = midiNoteNumber;
 }
 
@@ -89,9 +95,12 @@ void OscData::getNextAudioBlock(juce::dsp::AudioBlock<float>& block)
 
 void OscData::setFMParams(const float depth, const float freq)
 {
-    fmOsc.setFrequency(freq);
     fmDepth = depth;
-    auto currentFreq = (juce::MidiMessage::getMidiNoteInHertz(lastMidiNote) + fmMod);
-    setFrequency (currentFreq >=0 ? currentFreq : currentFreq * -1.0f);
+    fmOsc.setFrequency(freq);
+//    auto currentFreq = (juce::MidiMessage::getMidiNoteInHertz(lastMidiNote) + fmMod);
+//    setFrequency (currentFreq >=0 ? currentFreq : currentFreq * -1.0f);
+    
+    setFrequency (juce::MidiMessage::getMidiNoteInHertz ((lastMidiNote + lastPitch) + fmMod));
+
 
 }

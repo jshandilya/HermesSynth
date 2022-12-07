@@ -163,12 +163,14 @@ void HermesSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
             // Osc 1
             auto& osc1WaveChoice = *apvts.getRawParameterValue("OSC1WAVETYPE");
             auto& osc1Gain = *apvts.getRawParameterValue("OSC1GAIN");
+            auto& osc1Pitch = *apvts.getRawParameterValue("OSC1PITCH");
             auto& fmDepth1 = *apvts.getRawParameterValue("OSC1FMDEPTH");
             auto& fmFreq1 = *apvts.getRawParameterValue("OSC1FMFREQ");
             
             // Osc 2
             auto& osc2WaveChoice = *apvts.getRawParameterValue("OSC2WAVETYPE");
             auto& osc2Gain = *apvts.getRawParameterValue("OSC2GAIN");
+            auto& osc2Pitch = *apvts.getRawParameterValue("OSC2PITCH");
             auto& fmDepth2 = *apvts.getRawParameterValue("OSC2FMDEPTH");
             auto& fmFreq2 = *apvts.getRawParameterValue("OSC2FMFREQ");
             
@@ -192,10 +194,12 @@ void HermesSynthAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, 
             // Connections
             voice->getOscillator1().setWaveType(osc1WaveChoice);
             voice->getOscillator1().setGain(osc1Gain);
+            voice->getOscillator1().setPitch(osc1Pitch);
             voice->getOscillator1().setFMParams(fmDepth1, fmFreq1);
             
             voice->getOscillator2().setWaveType(osc2WaveChoice);
             voice->getOscillator2().setGain(osc2Gain);
+            voice->getOscillator2().setPitch(osc2Pitch);
             voice->getOscillator2().setFMParams(fmDepth2, fmFreq2);
             
             voice->updateAdsr (attack.load(), decay.load(), sustain.load(), release.load());
@@ -275,6 +279,10 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::c
     params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC1GAIN", 1 }, "Oscillator 1 Gain", juce::NormalisableRange<float> { -60.0f, 0.2f, 0.1f, 1.5f }, 0.1f, "dB"));
     params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC2GAIN", 1 }, "Oscillator 2 Gain", juce::NormalisableRange<float> { -60.0f, 0.2f, 0.1f, 1.5f }, 0.1f, "dB"));
 
+    // OSC Ptich
+    params.push_back (std::make_unique<juce::AudioParameterInt>(juce::ParameterID { "OSC1PITCH", 1}, "Oscillator 1 Pitch", -48, 48, 0));
+    params.push_back (std::make_unique<juce::AudioParameterInt>(juce::ParameterID { "OSC2PITCH", 1}, "Oscillator 2 Pitch", -48, 48, 0));
+    
     // FM
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC1FMFREQ", 1}, "Osc 1 FM Frequency", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f }, 0.0f));
     params.push_back(std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC1FMDEPTH", 1}, "Osc 1 FM Depth", juce::NormalisableRange<float> { 0.0f, 1000.0f, 0.01f, 0.3f }, 0.0f));

@@ -12,7 +12,7 @@
 #include "OscComponent.h"
 
 //==============================================================================
-OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState& apvts, juce::String osc1GainID, juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID)
+OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState& apvts, juce::String osc1GainID, juce::String osc1PitchID ,juce::String waveSelectorID, juce::String voicesSelectorID, juce::String fmFreqID, juce::String fmDepthID)
 {
     componentName = name;
     
@@ -41,6 +41,7 @@ OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState
     addAndMakeVisible (waveSelectorLabel);
     
     setSliderWithLabel(osc1GainSlider, osc1GainLabel, apvts, osc1GainID, osc1GainAttachment);
+    setSliderWithLabel(osc1PitchSlider, osc1PitchLabel, apvts, osc1PitchID, osc1PitchAttachment);
     
     setSliderWithLabel(fmFreqSlider, fmFreqLabel, apvts, fmFreqID, fmFreqAttachment);
     setSliderWithLabel(fmDepthSlider, fmDepthLabel, apvts, fmDepthID, fmDepthAttachment);
@@ -77,6 +78,7 @@ void OscComponent::resized()
     const auto labelYOffset = 20;
     const auto labelHeight = 20;
     
+    const auto paddingY2 = 30;
     const auto voicesOffset = 70;
     
     // Osc
@@ -89,10 +91,13 @@ void OscComponent::resized()
     osc1GainSlider.setBounds (oscWaveSelector.getRight(), startY, sliderWidth, sliderHeight);
     osc1GainLabel.setBounds (osc1GainSlider.getX(), osc1GainSlider.getY() - labelYOffset, osc1GainSlider.getWidth(), labelHeight);
     
-    fmFreqSlider.setBounds (osc1GainSlider.getRight(), startY, sliderWidth, sliderHeight);
+    osc1PitchSlider.setBounds (osc1GainSlider.getRight(), startY, sliderWidth, sliderHeight);
+    osc1PitchLabel.setBounds (osc1PitchSlider.getX(), osc1PitchSlider.getY() - labelYOffset, osc1PitchSlider.getWidth(), labelHeight);
+    
+    fmFreqSlider.setBounds (osc1GainSlider.getX(), osc1GainSlider.getBottom() + paddingY2, sliderWidth, sliderHeight);
     fmFreqLabel.setBounds (fmFreqSlider.getX(), fmFreqSlider.getY() - labelYOffset, fmFreqSlider.getWidth(), labelHeight);
 
-    fmDepthSlider.setBounds (fmFreqSlider.getRight(), startY, sliderWidth, sliderHeight);
+    fmDepthSlider.setBounds (osc1PitchSlider.getX(), osc1PitchSlider.getBottom() + paddingY2, sliderWidth, sliderHeight);
     fmDepthLabel.setBounds (fmDepthSlider.getX(), fmDepthSlider.getY() - labelYOffset, fmDepthSlider.getWidth(), labelHeight);
 }
 

@@ -17,6 +17,7 @@ public:
     void prepareToPlay(double sampleRate, int samplesPerBlock, int outputChannels);
     void setWaveType(const int choice);
     void setGain (const float levelInDecibels);
+    void setPitch (const int pitch);
     void setWaveFrequency(const int midiNoteNumber);
     void getNextAudioBlock(juce::dsp::AudioBlock<float>& block);
     void setFMParams(const float depth, const float freq);
@@ -24,8 +25,9 @@ public:
 private:
     juce::dsp::Oscillator<float> fmOsc { [](float x) { return std::sin (x); } };
     juce::dsp::Gain<float> gain;
+    int lastPitch { 0 };
+    int lastMidiNote { 0 };
     float fmMod { 0.0f };
     float fmDepth { 0.0f };
-    int lastMidiNote { 0 };
 
 };
