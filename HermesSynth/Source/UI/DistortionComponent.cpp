@@ -75,7 +75,7 @@ using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
 void DistortionComponent::setSliderWithLabel (juce::Slider& slider, juce::Label& label, juce::AudioProcessorValueTreeState& apvts, juce::String paramID, std::unique_ptr<SliderAttachment>& attachment)
 {
     slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 25);
     addAndMakeVisible(slider);
     
     attachment = std::make_unique<juce::AudioProcessorValueTreeState::SliderAttachment>(apvts, paramID, slider);
