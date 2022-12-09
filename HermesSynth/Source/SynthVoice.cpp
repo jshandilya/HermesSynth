@@ -19,7 +19,8 @@ void SynthVoice::startNote (int midiNoteNumber, float velocity, juce::Synthesise
 {
     osc1.setWaveFrequency(midiNoteNumber);
     osc2.setWaveFrequency(midiNoteNumber);
-    
+    osc3.setWaveFrequency(midiNoteNumber);
+
     adsr.noteOn();
     modAdsr.noteOn();
 }
@@ -49,6 +50,9 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
 {
     reset();
     
+    adsr.setSampleRate(sampleRate);
+    modAdsr.setSampleRate(sampleRate);
+    
     juce::dsp::ProcessSpec spec;
     spec.maximumBlockSize = samplesPerBlock;
     spec.sampleRate = sampleRate;
@@ -56,10 +60,9 @@ void SynthVoice::prepareToPlay(double sampleRate, int samplesPerBlock, int outpu
     
     osc1.prepareToPlay(sampleRate, samplesPerBlock, outputChannels);
     osc2.prepareToPlay(sampleRate, samplesPerBlock, outputChannels);
+    osc3.prepareToPlay(sampleRate, samplesPerBlock, outputChannels);
     
-    adsr.setSampleRate(sampleRate);
     filter.prepareToPlay(sampleRate, samplesPerBlock, outputChannels);
-    modAdsr.setSampleRate(sampleRate);
     
     gain.prepare(spec);
     gain.setGainLinear(0.07f);
@@ -84,8 +87,10 @@ void SynthVoice::renderNextBlock (juce::AudioBuffer< float > &outputBuffer, int 
     synthBuffer.clear();
     
     juce::dsp::AudioBlock<float> audioBlock { synthBuffer };
+    
     osc1.getNextAudioBlock(audioBlock);
     osc2.getNextAudioBlock(audioBlock);
+    osc3.getNextAudioBlock(audioBlock);
 
     adsr.applyEnvelopeToBuffer(synthBuffer, 0, synthBuffer.getNumSamples());
     filter.process(synthBuffer);

@@ -104,6 +104,4 @@ void OscData::setFMParams(const float depth, const float freq)
 //    setFrequency (currentFreq >=0 ? currentFreq : currentFreq * -1.0f);
     
     setFrequency (juce::MidiMessage::getMidiNoteInHertz ((lastMidiNote + lastPitch) + fmMod));
-
-
 }

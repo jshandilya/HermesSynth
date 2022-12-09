@@ -66,8 +66,8 @@ void DistortionComponent::resized()
     gainSlider.setBounds (distTypeSelector.getRight(), startY + 5, sliderWidth, sliderHeight);
     gainLabel.setBounds (gainSlider.getX(), startY - labelYOffset, gainSlider.getWidth(), labelHeight);
     
-    levelSlider.setBounds (gainSlider.getRight(), startY + 5, sliderWidth, sliderHeight);
-    levelLabel.setBounds (levelSlider.getX(), startY - labelYOffset, levelSlider.getWidth(), labelHeight);
+    levelSlider.setBounds (gainSlider.getX(), gainSlider.getBottom() + 30, sliderWidth, sliderHeight);
+    levelLabel.setBounds (levelSlider.getX(), levelSlider.getY() - labelYOffset, levelSlider.getWidth(), labelHeight);
 }
 
 using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;

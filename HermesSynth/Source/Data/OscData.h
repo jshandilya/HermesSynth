@@ -22,6 +22,7 @@ public:
     void getNextAudioBlock(juce::dsp::AudioBlock<float>& block);
     void setFMParams(const float depth, const float freq);
     
+    
 private:
     juce::dsp::Oscillator<float> fmOsc { [](float x) { return std::sin (x); } };
     juce::dsp::Gain<float> gain;

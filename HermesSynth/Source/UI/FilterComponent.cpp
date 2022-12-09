@@ -59,7 +59,7 @@ void FilterComponent::resized()
     filterFreqSlider.setBounds (filterTypeSelector.getRight(), startY, sliderWidth, sliderHeight);
     filterFreqLabel.setBounds (filterFreqSlider.getX(), filterFreqSlider.getY() - labelYOffset, filterFreqSlider.getWidth(), labelHeight);
 
-    filterResSlider.setBounds (filterFreqSlider.getRight(), startY, sliderWidth, sliderHeight);
+    filterResSlider.setBounds (filterFreqSlider.getX(), filterFreqSlider.getBottom() + 30, sliderWidth, sliderHeight);
     filterResLabel.setBounds (filterResSlider.getX(), filterResSlider.getY() - labelYOffset, filterResSlider.getWidth(), labelHeight);
 }
 

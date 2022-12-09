@@ -36,6 +36,7 @@ public:
 
     OscData& getOscillator1() { return osc1; }
     OscData& getOscillator2() { return osc2; }
+    OscData& getOscillator3() { return osc3; }
 
     
 private:
@@ -43,6 +44,7 @@ private:
     
     OscData osc1;
     OscData osc2;
+    OscData osc3;
     
     AdsrData adsr;
     FilterData filter;

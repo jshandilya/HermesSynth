@@ -33,6 +33,7 @@ private:
     
     OscComponent osc;
     OscComponent osc2;
+    OscComponent osc3;
     AdsrComponent adsr;
     FilterComponent filter;
     AdsrComponent modAdsr;
