@@ -31,7 +31,7 @@ void OscData::setWaveType(const int choice)
      return x / juce::MathConstants<float>::pi  // Saw
      return x < 0.0f ? - 1.0f : 1.0f    // Square
      */
-    
+        
     switch (choice)
     {
         // Sine
@@ -53,8 +53,11 @@ void OscData::setWaveType(const int choice)
         case 3:
             initialise([](float x) { return x / juce::MathConstants<float>::pi; });
             break;
-            
-       
+        
+        // Noise
+        case 4:
+            initialise([this](float x) { return random.nextFloat() * 0.25f - 0.125f; });
+            break;
             
         default:
             jassertfalse;

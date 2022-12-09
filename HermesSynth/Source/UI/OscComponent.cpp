@@ -29,7 +29,7 @@ OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState
 //    addAndMakeVisible (voicesSelectorLabel);
     
     // Osc
-    juce::StringArray waveChoices { "Sine", "Triangle", "Square", "Saw" };
+    juce::StringArray waveChoices { "Sine", "Triangle", "Square", "Saw", "Noise" };
     oscWaveSelector.addItemList(waveChoices, 1);
     addAndMakeVisible(oscWaveSelector);
     

@@ -272,8 +272,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout HermesSynthAudioProcessor::c
     params.push_back(std::make_unique<juce::AudioParameterInt>(juce::ParameterID { "VOICES", 1 }, "Voices", 1, 8, 8));
     
     // OSC Waveform
-    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "OSC1WAVETYPE", 1 }, "Osc 1 Wave Type", juce::StringArray { "Sine", "Triangle", "Square", "Saw" }, 0));
-    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "OSC2WAVETYPE", 1 }, "Osc 2 Wave Type", juce::StringArray { "Sine", "Triangle", "Square", "Saw" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "OSC1WAVETYPE", 1 }, "Osc 1 Wave Type", juce::StringArray { "Sine", "Triangle", "Square", "Saw", "Noise" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>(juce::ParameterID { "OSC2WAVETYPE", 1 }, "Osc 2 Wave Type", juce::StringArray { "Sine", "Triangle", "Square", "Saw", "Noise" }, 0));
     
     // OSC Gain
     params.push_back (std::make_unique<juce::AudioParameterFloat>(juce::ParameterID { "OSC1GAIN", 1 }, "Oscillator 1 Gain", juce::NormalisableRange<float> { -60.0f, 0.2f, 0.1f, 1.5f }, 0.1f, "dB"));

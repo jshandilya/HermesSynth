@@ -25,6 +25,7 @@ public:
 private:
     juce::dsp::Oscillator<float> fmOsc { [](float x) { return std::sin (x); } };
     juce::dsp::Gain<float> gain;
+    juce::Random random;
     int lastPitch { 0 };
     int lastMidiNote { 0 };
     float fmMod { 0.0f };
