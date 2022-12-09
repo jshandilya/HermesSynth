@@ -20,7 +20,7 @@ HermesSynthAudioProcessorEditor::HermesSynthAudioProcessorEditor (HermesSynthAud
 , modAdsr("Filter Envelope", audioProcessor.apvts, "MODATTACK", "MODDECAY", "MODSUSTAIN", "MODRELEASE")
 , distortion(audioProcessor.apvts, "DISTTYPE", "DISTGAIN", "DISTLEVEL")
 {
-    setSize (930, 450);
+    setSize (930, 550);
     addAndMakeVisible(osc);
     addAndMakeVisible(osc2);
     addAndMakeVisible(adsr);
@@ -43,9 +43,9 @@ void HermesSynthAudioProcessorEditor::resized()
 {
     const auto paddingX = 5;
     const auto paddingY = 25;
-    const auto paddingY2 = 220;
+    const auto paddingY2 = 320;
     const auto paddingY3 = 520;
-    const auto expandY = 1.f;
+    const auto expandY = 1.5f;
     
     const auto width = 310 - paddingX;
     const auto height = 200;

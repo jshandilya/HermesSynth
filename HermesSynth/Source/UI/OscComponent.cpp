@@ -43,8 +43,8 @@ OscComponent::OscComponent(juce::String name, juce::AudioProcessorValueTreeState
     setSliderWithLabel(osc1GainSlider, osc1GainLabel, apvts, osc1GainID, osc1GainAttachment);
     setSliderWithLabel(osc1PitchSlider, osc1PitchLabel, apvts, osc1PitchID, osc1PitchAttachment);
     
-//    setSliderWithLabel(fmFreqSlider, fmFreqLabel, apvts, fmFreqID, fmFreqAttachment);
-//    setSliderWithLabel(fmDepthSlider, fmDepthLabel, apvts, fmDepthID, fmDepthAttachment);
+    setSliderWithLabel(fmFreqSlider, fmFreqLabel, apvts, fmFreqID, fmFreqAttachment);
+    setSliderWithLabel(fmDepthSlider, fmDepthLabel, apvts, fmDepthID, fmDepthAttachment);
 }
 
 OscComponent::~OscComponent()

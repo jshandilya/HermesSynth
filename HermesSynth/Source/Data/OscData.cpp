@@ -75,7 +75,7 @@ void OscData::setPitch (const int pitch)
 
 void OscData::setWaveFrequency(const int midiNoteNumber)
 {
-    setFrequency(juce::MidiMessage::getMidiNoteInHertz((midiNoteNumber + lastPitch)) + fmMod);
+    setFrequency(juce::MidiMessage::getMidiNoteInHertz((midiNoteNumber + lastPitch) + fmMod));
     lastMidiNote = midiNoteNumber;
 }
 
