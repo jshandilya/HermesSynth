@@ -59,6 +59,11 @@ void OscData::setWaveType(const int choice)
             initialise([this](float x) { return random.nextFloat() * 0.25f - 0.125f; });
             break;
             
+        // Off
+        case 5:
+            initialise([](float x) { return x * 0.0f; });
+            break;
+            
         default:
             jassertfalse;
             break;
