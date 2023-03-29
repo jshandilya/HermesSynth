@@ -19,6 +19,13 @@ Final project for Advanced Seminar (EP-401) at Berklee College of Music.
 * Distortion with soft and hard clip options
 * Distortion gain and level parameters
 
+## Building
+
+Download the [JUCE framework](https://juce.com/get-juce/) before
+cloning this repo. Open "HermesSynth.jucer" and open the source files in your preferred exporter. 
+
+In your IDE, select the plugin format you wish to use, and run the program. The plugin will then be available in the plugins section of your DAW.
+
 ## Sources
 
 This project is inspired by [The Audio Programmer's synth plugin series](https://www.youtube.com/watch?v=ADG6Rsd3ekg&list=PLLgJJsrdwhPwJimt5vtHtNmu63OucmPck).
